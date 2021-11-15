@@ -40,3 +40,13 @@ func saveVideos(videos []video)(){
 		panic(err)
 	}
 }
+
+/**
+*@TODO : check if ID is already exist 
+*/
+func validateVideo(vid video)(bool){
+	if(vid.Id == "" || vid.Title == "" || vid.Description == "" || vid.ImageUrl == "" || vid.Url == "" ){
+		return false
+	}
+	return true
+}

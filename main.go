@@ -56,11 +56,17 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				ImageUrl: data.ImageUrl, 
 				Url: data.Url, 
 			}
-			videos := getVideos() // get all videos
-			videos = append(videos,video) // append the new video to the list
+			
+			if(!validateVideo(video)){ // checking parameters
+				w.Write([]byte("Some parameters are missing"))
+			}else{
+				videos := getVideos() // get all videos
+				videos = append(videos,video) // append the new video to the list
 		
-			saveVideos(videos) // save videos
-		
+				saveVideos(videos) // save videos
+				w.Write([]byte("The video is added with success"))
+			}
+
 		default: // if the request type is not managed
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		
